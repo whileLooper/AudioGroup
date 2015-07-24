@@ -52,7 +52,6 @@ public class CameraFPS : MonoBehaviour {
 				source.Play();
 			}
 		}
-		print (source.pitch);
 	}
 	
 	void MoveForwards(float aVal)
