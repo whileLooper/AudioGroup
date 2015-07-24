@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CameraFPS : MonoBehaviour {
-
+	
 	public float sensitivityX = 5F;
 	public float sensitivityY = 5F;
 	public AudioClip[] clips;
@@ -11,8 +11,8 @@ public class CameraFPS : MonoBehaviour {
 	float mHdg = 0F;
 	float mPitch = 0F;
 	float pitch = 1f;
-
-	bool moving = false;
+	
+	bool moving = true;
 	
 	void Start()
 	{
@@ -27,42 +27,35 @@ public class CameraFPS : MonoBehaviour {
 		if (Input.GetKey(KeyCode.D))
 		{
 			Strafe(1);
-			moving = true;
-			if (source.isPlaying) {
-				source.Stop ();
-			}
 		}
 		if (Input.GetKey (KeyCode.A)) {
 			Strafe (-1);
-			moving = true;
-			if (source.isPlaying) {
-				source.Stop ();
-			}
 		}
 		if (Input.GetKey (KeyCode.W)) {
 			MoveForwards(1);
-			moving = true;
-			if (source.isPlaying) {
-				source.Stop ();
-			}
 		}
 		if (Input.GetKey (KeyCode.S)) {
 			MoveForwards (-1);
-			moving = true;
-			if (source.isPlaying) {
-				source.Stop ();
-
-			}
 		}
-
+		
+		if (Input.GetKey(KeyCode.Z)) {
+			moving = false;
+		}
+		if (Input.GetKey(KeyCode.X)) {
+			moving = true;
+		}
 		if (!moving) {
 			source.clip = clips[1];
 			if (!source.isPlaying) {
 				source.volume = 0.8f;
 				source.pitch = 1f;
 				source.Play();
-
+				
 			}
+		}
+		
+		if (moving) {
+			source.Stop ();
 		}
 		
 		if (Input.GetMouseButton(0))
@@ -88,7 +81,6 @@ public class CameraFPS : MonoBehaviour {
 				source.Play();
 			}
 		}
-		moving = false;
 	}
 	
 	void MoveForwards(float aVal)
